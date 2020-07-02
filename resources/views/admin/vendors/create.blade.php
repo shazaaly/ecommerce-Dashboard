@@ -81,12 +81,12 @@
                                                                     <label for="projectinput2">اختر القسم </label>
                                                                     <select name="category_id" class="select2 form-control">
                                                                         <optgroup label="من فضلك أختر القسم ">
-                                                                           @if($categories && $categories->count() > 0)
-
-                                                                               @foreach($categories as $category)
-                                                                                   <option value="{{$category->id}}">{{$category->name}}</option>
-                                                                                   @endforeach
-                                                                               @endif
+                                                                            @if($categories && $categories -> count() > 0)
+                                                                                @foreach($categories as $category)
+                                                                                    <option
+                                                                                        value="{{$category -> id }}">{{$category -> name}}</option>
+                                                                                @endforeach
+                                                                            @endif
                                                                         </optgroup>
                                                                     </select>
 
@@ -119,7 +119,7 @@
                                                             <div class="col-md-6 ">
                                                                 <div class="form-group">
                                                                     <label for="projectinput1"> البريد الألكتروني </label>
-                                                                    <input type="text" id="mobile"
+                                                                    <input type="text" id="email"
                                                                            class="form-control"
                                                                            placeholder="  "
                                                                            value=""
@@ -130,39 +130,63 @@
                                                                     @enderror
                                                                 </div>
                                                             </div>
-{{--                                                            active--}}
 
-                                                            <div class="col-md-6">
-                                                                <div class="form-group mt-1">
-                                                                    <input type="checkbox" value="1"
-                                                                           name="active"
-                                                                           id="switcheryColor4"
-                                                                           class="switchery" data-color="success"
-                                                                           checked/>
-                                                                    <label for="switcheryColor4"
-                                                                           class="card-title ml-1">الحالة </label>
 
-                                                                    @error("active")
-                                                                    <span class="text-danger"> </span>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
+
+
                                                         </div>
 
-{{--                                                address input--}}
+                                                <div class="row">
+                                                    <div class="col-md-12">
+
+                                                        <div class="form-group">
+                                                            <label for="projectinput1"> كلمة المرور  </label>
+                                                            <input type="password" id="password"
+                                                                   class="form-control"
+                                                                   placeholder="  "
+                                                                   value=""
+                                                                   name="password">
+
+                                                            @error("password")
+                                                            <span class="text-danger">{{$message}}</span>
+                                                            @enderror
+                                                        </div>
+
+                                                    </div>
+
+                                                    {{--                                                            active--}}
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group mt-1">
+                                                            <input type="checkbox" value="1"
+                                                                   name="active"
+                                                                   id="switcheryColor4"
+                                                                   class="switchery" data-color="success"
+                                                                   checked/>
+                                                            <label for="switcheryColor4"
+                                                                   class="card-title ml-1">الحالة </label>
+
+                                                            @error("active")
+                                                            <span class="text-danger"> </span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+                                                {{--                                                address input--}}
                                                 <div class="row">
 
                                                     <div class="col-md-6 ">
                                                         <div class="form-group">
-                                                            <label for="projectinput1"> العنوان </label>
+                                                            <label for="projectinput1"> العنوان  </label>
                                                             <input type="text" id="pac-input"
                                                                    class="form-control"
-                                                                   placeholder="  "
-                                                                   value=""
-                                                                   name="adderss">
+                                                                   placeholder="  " name="address">
 
-                                                            @error("adderss")
-                                                            <span class="text-danger">{{$message}}</span>
+                                                            @error("address")
+                                                            <span class="text-danger"> {{$message}}</span>
                                                             @enderror
                                                         </div>
                                                     </div>

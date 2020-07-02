@@ -141,8 +141,8 @@ try {
 
             return redirect()->route('admin.mainCategories')->with(['success' => 'تم ألتحديث بنجاح']);
         } catch (\Exception $ex) {
-            return $ex;
-          //  return redirect()->route('admin.mainCategories')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
+             $ex;
+           return redirect()->route('admin.mainCategories')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
         }
 
     }

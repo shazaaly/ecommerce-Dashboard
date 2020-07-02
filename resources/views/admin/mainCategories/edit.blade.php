@@ -140,11 +140,11 @@
 
                                         <ul class="nav nav-tabs">
                                             @isset($mainCategory -> categories)
-                                                @foreach($mainCategory -> categories   as $index =>  $translation)
+                                                @foreach($mainCategory -> categories as $index=>$translation)
                                                     <li class="nav-item">
-                                                        <a class="nav-link @if($index ==  0) active @endif  " id="homeLable-tab"  data-toggle="tab"
-                                                           href="#homeLable{{$index}}" aria-controls="homeLable"
-                                                           aria-expanded="{{$index ==  0 ? 'true' : 'false'}}">
+                                                        <a class="nav-link @if($index ?? '' ==  0) active @endif  " id="homeLable-tab"  data-toggle="tab"
+                                                           href="#homeLable{{$index ?? ''}}" aria-controls="homeLable"
+                                                           aria-expanded="{{$index ?? '' ==  0 ? 'true' : 'false'}}">
                                                             {{$translation -> translation_lang}}</a>
                                                     </li>
                                                 @endforeach
@@ -153,9 +153,9 @@
                                         <div class="tab-content px-1 pt-1">
 
                                             @isset($mainCategory -> categories)
-                                                @foreach($mainCategory -> categories   as $index =>  $translation)
+                                                @foreach($mainCategory -> categories   as $index=>  $translation)
 
-                                                    <div role="tabpanel" class="tab-pane  @if($index ==  0) active  @endif  " id="homeLable{{$index}}"
+                                                    <div role="tabpanel" class="tab-pane  @if($index==  0) active  @endif  " id="homeLable{{$index}}"
                                                          aria-labelledby="homeLable-tab"
                                                          aria-expanded="{{$index ==  0 ? 'true' : 'false'}}">
 
@@ -257,8 +257,11 @@
 
                                         </ul>
 {{--//other langs form//--}}
-                                        <div class=" @if($index==0) ?active @endif  tab-content px-1 pt-1">
-                                            <div role="tabpanel" class="tab-pane" id="home3{{$index}}" aria-labelledby="home-tab3" aria-expanded="true">
+                                        <div class="tab-content px-1 pt-1">
+                                            @isset($mainCategory -> categories)
+                                                @foreach($mainCategory -> categories   as $index =>  $translation)
+
+                                                <div role="tabpanel" class="tab-pane" id="home3{{$index}}" aria-labelledby="home-tab3" aria-expanded="true">
                                                 <form class="form"
                                                       action="{{route('admin.mainCategories.update', $translation -> id)}}"
                                                       method="POST"
@@ -339,7 +342,8 @@
 
                                             </div>
 
-
+                                                @endforeach
+                                            @endisset
                                         </div>
 
 

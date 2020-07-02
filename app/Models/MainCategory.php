@@ -12,6 +12,8 @@ class MainCategory extends Model
     protected $fillable= [
         'name', 'slug', 'photo', 'translation_lang', 'translation_of', 'active', 'translation_of', 'created_at', 'updated_at'
     ];
+    protected $primaryKey = 'id';
+
 
     public function scopeActive($query){
         return $query->where('active', 1);
@@ -38,7 +40,7 @@ class MainCategory extends Model
 
     //Relation: Each vendor belongs to Only One Main Category===>Whils Main Cat HAS Many Vendors//
     public function vendors(){
-        return $this->hasMany('App\Models\Vendor', 'category_id');
+        return $this->hasMany('App\Models\Vendor');
     }
 
 

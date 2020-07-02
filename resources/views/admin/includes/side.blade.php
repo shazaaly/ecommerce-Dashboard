@@ -35,7 +35,7 @@
             <li class="nav-item"><a href=""><i class="la la-male"></i>
                     <span class="menu-title" data-i18n="nav.dash.main">الموردين  </span>
                     <span
-                        class="badge badge badge-success badge-pill float-right mr-2">{{App\Models\Vendor::count()}}</span>
+                        class="badge badge badge-success badge-pill float-right mr-2">{{ App\Models\Vendor::count() }}</span>
                 </a>
                 <ul class="menu-content">
                     <li class="active"><a class="menu-item" href="{{route('admin.vendors')}}"
