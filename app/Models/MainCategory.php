@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Observers\MainCategoryObserver;
 
 class MainCategory extends Model
 {
@@ -40,9 +41,15 @@ class MainCategory extends Model
 
     //Relation: Each vendor belongs to Only One Main Category===>Whils Main Cat HAS Many Vendors//
     public function vendors(){
-        return $this->hasMany('App\Models\Vendor');
+        return $this->hasMany('App\Models\Vendor', 'category_id');
     }
 
 
+
+        protected static function boot()
+    {
+        parent::boot();
+        MainCategory::observe(MainCategoryObserver::class);
+    }
 }
 

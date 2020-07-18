@@ -164,7 +164,7 @@
     $('#meridians13').timeDropper({
         meridians: true,setCurrentTime: false
     });
-    $('#meridians14').timeDropper({
+    $('#meridians14').gittimeDropper({
         meridians: true,setCurrentTime: false
     });
 </script>

@@ -20,3 +20,8 @@ Route::get('/admin', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('main-cats', 'CollController@complexFilter');
+Route::get('main-cats-trans', 'CollController@complexTransform');
+
+

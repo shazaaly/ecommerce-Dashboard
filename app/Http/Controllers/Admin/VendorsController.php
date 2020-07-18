@@ -10,6 +10,7 @@ use App\Http\Requests\VendorsRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\VendorCreated;
+use Illuminate\Support\Str;
 use function Sodium\add;
 class VendorsController extends Controller
 {
@@ -116,10 +117,64 @@ class VendorsController extends Controller
             return $ex;
             return redirect()->route('admin.vendors')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
 
-
         }
 
     }
+    public function destroy($id){
+        try{
+            $vendor=   Vendor::find($id);
+
+            if (!$vendor){
+                return redirect()->route('admin.vendors')->with(['error' => 'هذا المورد غير موجود ']);
+            }
+
+            // return $mainCategory->photo;
+            // unlink($mainCategory->photo); unlink can not be used with asset => http://localhost part//
+            //unlink deal with path like C:\xampp\htdocs\ecommerce\app\: so 1- cut http part
+            //to cut http part before assets//---
+            //now problem is slash \/:  C:\xampp\htdocs\ecommerce\app\/images/mainCategories/rRvjv0lVquD9Mn7AZ91khhoIjrB9FE1fNbH2uk77.jpeg
+
+            $image =  Str::after($vendor->logo, 'assets/');
+            //2- get internal path:
+            // return base_path($image);
+            //now we can use unlink ()//
+            $image =  base_path('assets/'.$image);
+            unlink($image);
+            //             delete translation langs to same mainCat from Database--check relations in related Model//
+            $vendor->delete();
+            return redirect()->route('admin.vendors')->with(['success' => 'تم الحذف بنجاح']);
+
+
+
+        }catch (\Exception $exception){
+            return $exception;
+            return redirect()->route('admin.vendors')->with(['error' => 'خطأ في حذف البيانات! ']);
+        }
+
+    }
+
+    public function changeStatus($id){
+        try{
+            $vendor=   Vendor::find($id);
+            if (!$vendor){
+                return redirect()->route('admin.vendors')->with(['error' => 'هذا المورد غير موجود ']);
+            }
+
+            $status =  $vendor->active ==0 ? 1:0;
+            $vendor->update([ 'active' => $status  ]);
+            return redirect()->route('admin.vendors')->with(['success'=>'تم تعديل الحالة بنجاح']);
+
+        }catch (\Exception $exception){
+            return redirect()->route('admin.vendors')->with(['error' => 'خطأ في تعديل البيانات! ']);
+
+
+        }
+
+
+
+    }
+
+
 
 
 }

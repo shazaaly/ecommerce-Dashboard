@@ -8,6 +8,7 @@ use App\Models\MainCategory;
 use App\Http\Requests\MainCategoryRequest;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 
 class MainCategoryController extends Controller
@@ -144,6 +145,66 @@ try {
              $ex;
            return redirect()->route('admin.mainCategories')->with(['error' => 'حدث خطا ما برجاء المحاوله لاحقا']);
         }
+
+    }
+
+    public  function destroy($id){
+        try{
+         $mainCategory=   MainCategory::find($id);
+
+         if (!$mainCategory){
+             return redirect()->route('admin.mainCategories')->with(['error' => 'هذا القسم غير موجود ']);
+         }
+        $vendors =  $mainCategory->vendors();
+
+         if (isset($vendors) && $vendors->count() > 0){
+             return redirect()->route('admin.mainCategories')->with(['error' => 'هذا القسم لا يمكن حذفه ! ']);
+
+         }
+            // return $mainCategory->photo;
+           // unlink($mainCategory->photo); unlink can not be used with asset => http://localhost part//
+            //unlink deal with path like C:\xampp\htdocs\ecommerce\app\: so 1- cut http part
+            //to cut http part before assets//---
+            //now problem is slash \/:  C:\xampp\htdocs\ecommerce\app\/images/mainCategories/rRvjv0lVquD9Mn7AZ91khhoIjrB9FE1fNbH2uk77.jpeg
+
+            $image =  Str::after($mainCategory->photo, 'assets/');
+            //2- get internal path:
+            // return base_path($image);
+            //now we can use unlink ()//
+              $image =  base_path('assets/'.$image);
+             unlink($image);
+            //             delete translation langs to same mainCat from Database--check relations in related Model//
+            $mainCategory->categories()->delete();
+            $mainCategory->delete();
+            return redirect()->route('admin.mainCategories')->with(['success' => 'تم الحذف بنجاح']);
+
+
+
+        }catch (\Exception $exception){
+              //return $exception;
+            return redirect()->route('admin.mainCategories')->with(['error' => 'خطأ في حذف البيانات! ']);
+        }
+
+    }
+
+    public function changeStatus($id){
+        try{
+            $mainCategory=   MainCategory::find($id);
+            if (!$mainCategory){
+                return redirect()->route('admin.mainCategories')->with(['error' => 'هذا القسم غير موجود ']);
+            }
+
+           $status =  $mainCategory->active ==0 ? 1:0;
+            $mainCategory->update([ 'active' => $status  ]);
+            return redirect()->route('admin.mainCategories')->with(['success'=>'تم تعديل الحالة بنجاح']);
+
+        }catch (\Exception $exception){
+            return redirect()->route('admin.mainCategories')->with(['error' => 'خطأ في تعديل البيانات! ']);
+
+
+        }
+
+
 
     }
 }

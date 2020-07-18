@@ -48,6 +48,9 @@ Route::group([
                 Route::get('edit/{id}', 'MainCategoryController@edit')->name('admin.mainCategories.edit');
                 Route::post('update/{id}', 'MainCategoryController@update')->name('admin.mainCategories.update');
                 Route::get('delete/{id}', 'MainCategoryController@destroy')->name('admin.mainCategories.delete');
+                Route::get('changeStatus/{id}', 'MainCategoryController@changeStatus')->name('admin.mainCategories.status');
+
+
             });
 
 
@@ -61,6 +64,8 @@ Route::group([
                 Route::get('edit/{id}', 'vendorsController@edit')->name('admin.vendors.edit');
                 Route::post('update/{id}', 'vendorsController@update')->name('admin.vendors.update');
                 Route::get('delete/{id}', 'vendorsController@destroy')->name('admin.vendors.delete');
+                Route::get('changeStatus/{id}', 'vendorsController@changeStatus')->name('admin.vendors.status');
+
             });
 
 
